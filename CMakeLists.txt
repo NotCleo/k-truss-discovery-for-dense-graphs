@@ -1,0 +1,10 @@
+cmake_minimum_required(VERSION 3.10)
+project(KTruss LANGUAGES CXX CUDA)
+set(CMAKE_CUDA_STANDARD 11)
+set(CMAKE_CUDA_STANDARD_REQUIRED ON)
+find_package(CUDA REQUIRED)
+add_executable(ktruss ktruss.cu)
+set_target_properties(ktruss PROPERTIES CUDA_SEPARABLE_COMPILATION ON)
+# Specify architecture for H100 (compute capability 9.0) after upgrading CUDA
+set_target_properties(ktruss PROPERTIES CUDA_ARCHITECTURES 90)
+target_link_libraries(ktruss ${CUDA_LIBRARIES})
